@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>台灣氣象觀測地圖｜CWA 自動氣象站</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="title-row">
+      <h1>台灣氣象觀測地圖</h1>
+      <span id="updated" class="updated">載入中…</span>
+      <span id="stale" class="stale" hidden>⚠ 資料已超過 6 小時未更新</span>
+    </div>
+    <div class="controls">
+      <div class="var-switch" role="group" aria-label="觀測變數">
+        <button data-var="temp" class="active">氣溫</button>
+        <button data-var="rain">雨量</button>
+        <button data-var="humidity">濕度</button>
+      </div>
+      <select id="county" aria-label="縣市篩選">
+        <option value="">全部縣市</option>
+      </select>
+      <span id="count" class="count"></span>
+    </div>
+  </header>
+
+  <div id="map"></div>
+
+  <div id="legend" class="legend"></div>
+
+  <footer>
+    資料來源：<a href="https://opendata.cwa.gov.tw/" target="_blank" rel="noopener">中央氣象署</a>
+    （政府資料開放授權條款－第1版）｜
+    底圖 © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 | 項目 | 內容 |
 |---|---|
 | 作者 | Leo Kuo（郭乃瑋） |
-| 狀態 | Draft v0.3（2026-09-21）— M0.5 API 測試通過（HTTP 200、876 測站），可進 M1 |
+| 狀態 | v0.4（2026-09-21）— M1、M2 完成；M3 程式與設定已就緒，待設定 GitHub Secret 與連結 Vercel |
 | 一句話 | 從中央氣象署開放資料抓測站觀測，存進資料庫，畫在台灣地圖上，經 GitHub 自動部署到 Vercel |
 
 ---
@@ -341,9 +341,9 @@ jobs:
 |---|---|---|
 | M0 ✅ | 取得 CWA 授權碼 | 已完成（2026-09-21）；授權碼只存在環境變數，不進 repo、不出現在截圖或報告 |
 | M0.5 ✅ | 本機測試 API（見 §10.1） | 已完成（2026-09-21）：`HTTP 200`、876 測站、座標組為 `['TWD67', 'WGS84']`、缺值代碼為字串 `"-99"` |
-| M1 | 步驟 1–2：API + SQLite + 匯出 | `weather.db` 有資料；`latest.json` 能在 <https://geojson.io> 正確顯示點位 |
-| M2 | 步驟 3：本機 GIS 網頁 | 本機可看到全部測站、顏色、popup、圖例 |
-| M3 | 步驟 4–5：GitHub + Actions + Vercel | Actions 綠燈；Vercel 網址可用；隔 3 小時資料自動更新 |
+| M1 ✅ | 步驟 1–2：API + SQLite + 匯出 | 已完成（2026-09-21）：874 站入庫（東沙、南沙依 §4.3 範圍規則排除）；重跑兩次觀測筆數不變；`latest.json` 為合法 GeoJSON |
+| M2 ✅ | 步驟 3：本機 GIS 網頁 | 已完成（2026-09-21）：Leaflet + Canvas renderer、氣溫／雨量／濕度切換、縣市篩選、圖例、popup、過期提示 |
+| M3 | 步驟 4–5：GitHub + Actions + Vercel | 程式與設定已 push；待：GitHub Secret `CWA_API_KEY`、Vercel 匯入 repo |
 | M4（選做） | 縣市預報面量圖 | 加入 `F-C0032-005` + 縣市界 GeoJSON，作為第二個圖層 |
 | M5（選做） | 雲端資料庫 | SQLite 換成 Turso 或 Supabase，Vercel function 提供查詢 API 與歷史曲線 |
 
@@ -422,4 +422,4 @@ print("疑似缺值：", sorted({t for t in temps if float(t) < -50}))
 1. DIC-2 作業說明對「database」有沒有指定類型（SQLite 是否可接受）。
 2. 是否一定要包含「預報」資料；若是，M4 要提前成必做。
 3. ~~缺值代碼的實際寫法~~ 已確認（2026-09-21）：缺值以**字串 `"-99"`** 表示，出現在 `Weather`、`GustInfo.PeakGustSpeed`、甚至 `Occurred_at.DateTime` 等欄位；數值欄位（氣溫等）則是可轉 float 的字串。§4.3 的清理規則需同時處理字串 `"-99"` 與轉型後 `< -50` 的數值。
-4. 實際測站數量已確認為 **876 站**（2026-09-21）；`weather.db` 在 7 天保留期下的檔案大小，M1 完成後量測並回填 §6 的 `stationCount`。
+4. 實際測站數量已確認為 **876 站**，入庫 **874 站**（東沙 468100、南沙 469020 超出 §4.3 台灣範圍而排除，2026-09-21）。單次快照下 `weather.db` 約 280 KB、`latest.json` 約 277 KB；7 天保留期（每 3 小時一次，約 56 個快照）推估 `weather.db` 約 10–15 MB，學期內可接受。
