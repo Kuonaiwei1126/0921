@@ -3,7 +3,7 @@
 | 項目 | 內容 |
 |---|---|
 | 作者 | Leo Kuo（郭乃瑋） |
-| 狀態 | v0.4（2026-09-21）— M1、M2 完成；M3 程式與設定已就緒，待設定 GitHub Secret 與連結 Vercel |
+| 狀態 | v0.5（2026-09-21）— M1、M2 完成；Vercel 已上線 <https://cwa-weather-gis.vercel.app/>；M3 尚待 GitHub Secret 讓排程生效 |
 | 一句話 | 從中央氣象署開放資料抓測站觀測，存進資料庫，畫在台灣地圖上，經 GitHub 自動部署到 Vercel |
 
 ---
@@ -343,7 +343,7 @@ jobs:
 | M0.5 ✅ | 本機測試 API（見 §10.1） | 已完成（2026-09-21）：`HTTP 200`、876 測站、座標組為 `['TWD67', 'WGS84']`、缺值代碼為字串 `"-99"` |
 | M1 ✅ | 步驟 1–2：API + SQLite + 匯出 | 已完成（2026-09-21）：874 站入庫（東沙、南沙依 §4.3 範圍規則排除）；重跑兩次觀測筆數不變；`latest.json` 為合法 GeoJSON |
 | M2 ✅ | 步驟 3：本機 GIS 網頁 | 已完成（2026-09-21）：Leaflet + Canvas renderer、氣溫／雨量／濕度切換、縣市篩選、圖例、popup、過期提示 |
-| M3 | 步驟 4–5：GitHub + Actions + Vercel | 程式與設定已 push；待：GitHub Secret `CWA_API_KEY`、Vercel 匯入 repo |
+| M3 | 步驟 4–5：GitHub + Actions + Vercel | Vercel 已上線（2026-09-21）：<https://cwa-weather-gis.vercel.app/>，CORS 與快取標頭驗證生效；待：GitHub Secret `CWA_API_KEY` 設定後 Actions 排程即可自動更新資料 |
 | M4（選做） | 縣市預報面量圖 | 加入 `F-C0032-005` + 縣市界 GeoJSON，作為第二個圖層 |
 | M5（選做） | 雲端資料庫 | SQLite 換成 Turso 或 Supabase，Vercel function 提供查詢 API 與歷史曲線 |
 
