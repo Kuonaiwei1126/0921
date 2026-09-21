@@ -6,6 +6,8 @@ push 後由 Vercel 自動部署。
 
 完整設計文件見 [design.md](design.md)。
 
+![台灣氣象觀測地圖截圖](docs/screenshot.png)
+
 ## 架構
 
 ```
