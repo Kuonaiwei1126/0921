@@ -3,3 +3,7 @@
 __pycache__/
 .vercel/
 *.json.tmp
+
+# fetch_weather.py（課程練習）的本機輸出
+data.db
+raw.json
